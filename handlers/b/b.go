@@ -14,7 +14,7 @@ func (userHandlerB *UserHandlerB) GetData(id int) *usecases.User {
 	return user
 }
 
-func NewHandler(u usecases.UserUseCaseB) handlers.UserHandlerB {
+func NewHandler(u usecases.UserUseCase) handlers.UserHandler {
 	handler := UserHandlerB{usecase: u}
 	return &handler
 }

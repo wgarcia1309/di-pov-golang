@@ -11,7 +11,7 @@ func (repository *UserRepositoryB) GetUserById(id int) *User {
 	return user
 }
 
-func NewUserRepositoryB() IUserRepositoryB {
+func NewUserRepositoryB() IUserRepository {
 	rep := new(UserRepositoryB)
 	return rep
 }
