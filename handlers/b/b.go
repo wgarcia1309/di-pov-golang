@@ -2,9 +2,7 @@ package b
 
 import (
 	"di.com/m/v2/handlers"
-	"di.com/m/v2/repositories"
 	"di.com/m/v2/usecases"
-	"go.uber.org/dig"
 )
 
 type UserHandlerB struct {
@@ -16,16 +14,7 @@ func (userHandlerB *UserHandlerB) GetData(id int) *usecases.User {
 	return user
 }
 
-func NewHandler() handlers.UserHandler {
-	container := dig.New()
-
-	container.Provide(repositories.NewUserRepositoryB)
-	container.Provide(usecases.NewUseCaseA)
-	var usecase usecases.UserUseCase
-	container.Invoke(func(u usecases.UserUseCase) {
-		usecase = u
-	})
-
-	handler := UserHandlerB{usecase: usecase}
+func NewHandler(u usecases.UserUseCaseB) handlers.UserHandlerB {
+	handler := UserHandlerB{usecase: u}
 	return &handler
 }

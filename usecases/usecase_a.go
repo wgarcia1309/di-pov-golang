@@ -13,15 +13,7 @@ func (useCaseA *UseCaseA) Get(id int) *User {
 	return mapUser(user)
 }
 
-func mapUser(model *repositories.User) *User {
-	newUser := new(User)
-	newUser.Name = model.Name
-	newUser.UserName = model.UserName
-	newUser.Id = model.Id
-	return newUser
-}
-
-func NewUseCaseA(repository repositories.IUserRepository) UserUseCase {
+func NewUseCaseA(repository repositories.IUserRepositoryA) UserUseCaseA {
 	usecase := new(UseCaseA)
 	usecase.repository = repository
 	return usecase
