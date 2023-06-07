@@ -12,17 +12,21 @@ import (
 	"github.com/google/wire"
 )
 
+var handlerSetA = wire.NewSet(a.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryA)
+var handlerSetB = wire.NewSet(a.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryA)
+var handlerSetC = wire.NewSet(a.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryA)
+
 func InitializeHandlerA() handlers.UserHandler {
-	wire.Build(a.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryA)
+	wire.Build(handlerSetA)
 	return &a.UserHandlerA{}
 }
 
 func InitializeHandlerB() handlers.UserHandler {
-	wire.Build(b.NewHandler, usecases.NewUseCaseB, repositories.NewUserRepositoryB)
+	wire.Build(handlerSetB)
 	return &b.UserHandlerB{}
 }
 
 func InitializeHandlerC() handlers.UserHandler {
-	wire.Build(b.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryB)
+	wire.Build(handlerSetC)
 	return &b.UserHandlerB{}
 }

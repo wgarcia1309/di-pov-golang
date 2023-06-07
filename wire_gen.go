@@ -9,9 +9,9 @@ package main
 import (
 	"di.com/m/v2/handlers"
 	"di.com/m/v2/handlers/a"
-	"di.com/m/v2/handlers/b"
 	"di.com/m/v2/repositories"
 	"di.com/m/v2/usecases"
+	"github.com/google/wire"
 )
 
 // Injectors from wire.go:
@@ -24,15 +24,23 @@ func InitializeHandlerA() handlers.UserHandler {
 }
 
 func InitializeHandlerB() handlers.UserHandler {
-	iUserRepository := repositories.NewUserRepositoryB()
-	userUseCase := usecases.NewUseCaseB(iUserRepository)
-	userHandler := b.NewHandler(userUseCase)
+	iUserRepository := repositories.NewUserRepositoryA()
+	userUseCase := usecases.NewUseCaseA(iUserRepository)
+	userHandler := a.NewHandler(userUseCase)
 	return userHandler
 }
 
 func InitializeHandlerC() handlers.UserHandler {
-	iUserRepository := repositories.NewUserRepositoryB()
+	iUserRepository := repositories.NewUserRepositoryA()
 	userUseCase := usecases.NewUseCaseA(iUserRepository)
-	userHandler := b.NewHandler(userUseCase)
+	userHandler := a.NewHandler(userUseCase)
 	return userHandler
 }
+
+// wire.go:
+
+var handlerSetA = wire.NewSet(a.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryA)
+
+var handlerSetB = wire.NewSet(a.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryA)
+
+var handlerSetC = wire.NewSet(a.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryA)
