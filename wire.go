@@ -13,20 +13,25 @@ import (
 )
 
 var handlerSetA = wire.NewSet(a.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryA)
-var handlerSetB = wire.NewSet(a.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryA)
-var handlerSetC = wire.NewSet(a.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryA)
+var handlerSetB = wire.NewSet(b.NewHandler, usecases.NewUseCaseB, repositories.NewUserRepositoryB)
+var handlerSetC = wire.NewSet(b.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryB)
 
 func InitializeHandlerA() handlers.UserHandler {
 	wire.Build(handlerSetA)
-	return &a.UserHandlerA{}
+	return nil
 }
 
 func InitializeHandlerB() handlers.UserHandler {
 	wire.Build(handlerSetB)
-	return &b.UserHandlerB{}
+	return nil
 }
 
 func InitializeHandlerC() handlers.UserHandler {
 	wire.Build(handlerSetC)
-	return &b.UserHandlerB{}
+	return nil
+}
+
+func InitializeHandlerD() handlers.UserHandler {
+	wire.Build(b.NewHandler, usecases.HandlerSetDi)
+	return nil
 }

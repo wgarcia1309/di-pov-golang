@@ -2,6 +2,7 @@ package usecases
 
 import (
 	"di.com/m/v2/repositories"
+	"github.com/google/wire"
 )
 
 type UseCaseB struct {
@@ -18,3 +19,5 @@ func NewUseCaseB(repository repositories.IUserRepository) UserUseCase {
 	usecase.repository = repository
 	return usecase
 }
+
+var HandlerSetDi = wire.NewSet(NewUseCaseB, repositories.NewUserRepositoryA)

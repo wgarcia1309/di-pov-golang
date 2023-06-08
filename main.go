@@ -16,4 +16,8 @@ func main() {
 	user = handlerC.GetData(789)
 	fmt.Println(user)
 
+	handlerD := InitializeHandlerD()
+	user = handlerD.GetData(101112)
+	fmt.Println(user)
+
 }

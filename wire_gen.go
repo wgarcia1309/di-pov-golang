@@ -9,6 +9,7 @@ package main
 import (
 	"di.com/m/v2/handlers"
 	"di.com/m/v2/handlers/a"
+	"di.com/m/v2/handlers/b"
 	"di.com/m/v2/repositories"
 	"di.com/m/v2/usecases"
 	"github.com/google/wire"
@@ -24,16 +25,23 @@ func InitializeHandlerA() handlers.UserHandler {
 }
 
 func InitializeHandlerB() handlers.UserHandler {
-	iUserRepository := repositories.NewUserRepositoryA()
-	userUseCase := usecases.NewUseCaseA(iUserRepository)
-	userHandler := a.NewHandler(userUseCase)
+	iUserRepository := repositories.NewUserRepositoryB()
+	userUseCase := usecases.NewUseCaseB(iUserRepository)
+	userHandler := b.NewHandler(userUseCase)
 	return userHandler
 }
 
 func InitializeHandlerC() handlers.UserHandler {
-	iUserRepository := repositories.NewUserRepositoryA()
+	iUserRepository := repositories.NewUserRepositoryB()
 	userUseCase := usecases.NewUseCaseA(iUserRepository)
-	userHandler := a.NewHandler(userUseCase)
+	userHandler := b.NewHandler(userUseCase)
+	return userHandler
+}
+
+func InitializeHandlerD() handlers.UserHandler {
+	iUserRepository := repositories.NewUserRepositoryA()
+	userUseCase := usecases.NewUseCaseB(iUserRepository)
+	userHandler := b.NewHandler(userUseCase)
 	return userHandler
 }
 
@@ -41,6 +49,6 @@ func InitializeHandlerC() handlers.UserHandler {
 
 var handlerSetA = wire.NewSet(a.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryA)
 
-var handlerSetB = wire.NewSet(a.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryA)
+var handlerSetB = wire.NewSet(b.NewHandler, usecases.NewUseCaseB, repositories.NewUserRepositoryB)
 
-var handlerSetC = wire.NewSet(a.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryA)
+var handlerSetC = wire.NewSet(b.NewHandler, usecases.NewUseCaseA, repositories.NewUserRepositoryB)
